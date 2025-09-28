@@ -60,10 +60,11 @@ const register = async (req, res) => {
 // Login
 const login = async (req, res) => {
     try {
+        const {id} = req.params;
         const { email, password } = req.body;
 
         // Find user
-        const user = await User.findOne({ email });
+        const user = await User.findById({ id });
         if(!user)
             return res.status(400).json({ message: "User not found" });
 
@@ -106,20 +107,29 @@ const updateUser = async (req, res) => {
     try {
         const {id} = req.params;
         const { name, email, password, role } = req.body;
-        const updateData = { name, email, password, role };
-        const userCheck = await User.findOne({id});
-        if(userCheck)
-            return res.status(400).json({ message: "User not found"});
-        const user = await User.findByIdAndUpdate(id, updateData, {new: true});
-        const token = createToken(user);
+
+        // Check the user
+        const user = await User.findById({id});
+        if(!user) 
+            return res.status(404).json({ message: "User not found" });
+
+        // Update the user
+        if(name) user.name = name;
+        if(email) user.email = email;
+        if(password) user.password = await bcrypt.hash(password, 10);
+        if(role) user.role = role;
+
+        // Save user
+        await user.save();
         res.json({
-            message: "User updated successfully.",
+            message: "User updated successfully",
             user: {
                 id: user._id,
                 name: user.name,
-                email: user.email
-            }, token
-        })
+                email: user.email,
+                role: user.role,
+            }
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -151,7 +161,7 @@ const logout = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: "Logout failed", error: err.message });
     }
-}
+} 
  
 module.exports = {
     allUsers,

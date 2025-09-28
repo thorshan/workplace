@@ -1,34 +1,38 @@
-GET http://localhost:5000/api/users
+###
+GET http://localhost:5000/api/departments
 
 ###
-POST http://localhost:5000/api/register
+
+GET http://localhost:5000/api/employee
+
+###
+
+POST http://localhost:5000/api/employee
 Content-Type: application/json
 
 {
-    "name": "test",
-    "email": "test1@gmail.com",
-    "password": "test"
+   "name": "John",
+   "email": "john1@gmail.com",
+   "department": "68d8f4abc739956a51ab8cda",
+   "employmentDate": "11/11/2023",
+   "employeeID": "UUID0001",
+   "dateOfBirth": "10/10/1996",
+   "idNumber": "1234567890",
+   "address": "Yangon, Myanmar"
 }
 
 ###
-PUT http://localhost:5000/api/users/68d4e4ebd5813d1fab1a5ada
+
+GET http://localhost:5000/api/employee/68d90e4b87c83a41c59038c7
+
+###
+
+PUT http://localhost:5000/api/employee/68d90e4b87c83a41c59038c7
 Content-Type: application/json
 
 {
-    "name": "test1"
+    "employeeID": "UUID0002"
 }
 
 ###
-DELETE http://localhost:5000/api/users/68d4e5d35dd54057512bdb5a
-
-###
-POST http://localhost:5000/api/login
-Content-Type: application/json
-
-{
-    "email": "test@gmail.com",
-    "password": "test"
-}
-
-###
-POST http://localhost:5000/api/logout
+DELETE http://localhost:5000/api/employee/68d911acbf9cbac0f8cd5749

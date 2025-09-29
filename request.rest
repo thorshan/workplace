@@ -2,23 +2,33 @@
 GET http://localhost:5000/api/departments
 
 ###
-
-GET http://localhost:5000/api/employee
+POST http://localhost:5000/api/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDY1NzM4ZDc2ZDYxMGZkZDg2ZTU2OCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1OTExOTU5NCwiZXhwIjoxNzU5MjA1OTk0fQ.WF8XdBfQr7U5_-F6HKX_U2ek5JsyU-hMERMXsCTqzQI
 
 ###
-
-POST http://localhost:5000/api/employee
+POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-   "name": "John",
-   "email": "john1@gmail.com",
-   "department": "68d8f4abc739956a51ab8cda",
-   "employmentDate": "11/11/2023",
-   "employeeID": "UUID0001",
-   "dateOfBirth": "10/10/1996",
-   "idNumber": "1234567890",
-   "address": "Yangon, Myanmar"
+   "email": "test@gmail.com",
+   "password": "test"
+}
+
+###
+
+GET http://localhost:5000/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDY1NzM4ZDc2ZDYxMGZkZDg2ZTU2OCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1OTExOTU5NCwiZXhwIjoxNzU5MjA1OTk0fQ.WF8XdBfQr7U5_-F6HKX_U2ek5JsyU-hMERMXsCTqzQI
+
+###
+
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDY1NzM4ZDc2ZDYxMGZkZDg2ZTU2OCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1OTExOTU5NCwiZXhwIjoxNzU5MjA1OTk0fQ.WF8XdBfQr7U5_-F6HKX_U2ek5JsyU-hMERMXsCTqzQI
+
+{
+   "name": "Jotestgjn",
+   "email": "johflghsn1@gmail.com",
+   "password": "password"
 }
 
 ###
@@ -35,4 +45,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/api/employee/68d911acbf9cbac0f8cd5749
+DELETE http://localhost:5000/api/users/68da13733bc12ffd72519e09
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDY1NzM4ZDc2ZDYxMGZkZDg2ZTU2OCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1OTExOTU5NCwiZXhwIjoxNzU5MjA1OTk0fQ.WF8XdBfQr7U5_-F6HKX_U2ek5JsyU-hMERMXsCTqzQI

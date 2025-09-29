@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 const role = require('../middleware/role');
 
 router.get('/users', auth, role(['admin']), authController.allUsers);
-router.post('/register', auth, role(['admin']), authController.register);
+router.post('/users/register', auth, role(['admin']), authController.register);
 router.post('/login', authController.login);
 router.post('/logout', auth, authController.logout);
 router.get('/users/:id', auth, role(['admin']), authController.getUser);

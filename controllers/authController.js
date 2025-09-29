@@ -38,6 +38,7 @@ const register = async (req, res) => {
             name,
             email,
             password: hashedPassword,
+            role
         });
 
         // Inject token to user
@@ -48,7 +49,8 @@ const register = async (req, res) => {
             user: {
                 id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                role: user.role
             }, token
         });
 
@@ -60,11 +62,10 @@ const register = async (req, res) => {
 // Login
 const login = async (req, res) => {
     try {
-        const {id} = req.params;
         const { email, password } = req.body;
 
         // Find user
-        const user = await User.findById({ id });
+        const user = await User.findOne({ email });
         if(!user)
             return res.status(400).json({ message: "User not found" });
 

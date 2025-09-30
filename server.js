@@ -18,12 +18,13 @@ connectDB();
 const auth = require("./routes/auth");
 const department = require('./routes/deparment');
 const employee = require('./routes/employee');
+const attendance = require('./routes/attendance');
 
 // Auth Route
 app.use('/api', auth);
 app.use('/api', department);
 app.use('/api', employee);
-
+app.use('/api', attendance);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));

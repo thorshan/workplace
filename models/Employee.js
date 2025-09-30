@@ -9,6 +9,10 @@ const emplyeeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    phNumber: {
+        type: String,
+        required: true
+    },
     department: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Department',

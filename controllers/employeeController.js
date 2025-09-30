@@ -16,6 +16,7 @@ const createEmployee = async (req, res) => {
         const {
             name,
             email,
+            phNumber,
             employeeID,
             employmentDate,
             department,
@@ -26,7 +27,7 @@ const createEmployee = async (req, res) => {
         const checkExisting = await Employee.findOne({ email });
         if(checkExisting)
             res.status(400).json({ message: "Employee already exist." });
-        const employee = await Employee.create({ name, email, employeeID, employmentDate, department, dateOfBirth, idNumber, address });
+        const employee = await Employee.create({ name, email,phNumber, employeeID, employmentDate, department, dateOfBirth, idNumber, address });
         res.json({ message: "Employee created successfully.", employee });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -51,6 +52,7 @@ const updateEmployee = async (req, res) => {
         const {
             name,
             email,
+            phNumber,
             employeeID,
             employmentDate,
             department,
@@ -65,6 +67,7 @@ const updateEmployee = async (req, res) => {
         if(isActive) employee.isActive = isActive;
         if(name) employee.name = name;
         if(email) employee.email = email;
+        if(phNumber) employee.phNumber = phNumber;
         if(employeeID) employee.employeeID = employeeID;
         if(employmentDate) employee.employmentDate = employmentDate;
         if(department) employee.department = department;

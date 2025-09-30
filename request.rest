@@ -33,7 +33,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDY1NzM4Z
 
 ###
 
-GET http://localhost:5000/api/employee/68d90e4b87c83a41c59038c7
+GET http://localhost:5000/api/employee
 
 ###
 
@@ -47,3 +47,16 @@ Content-Type: application/json
 ###
 DELETE http://localhost:5000/api/users/68da13733bc12ffd72519e09
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDY1NzM4ZDc2ZDYxMGZkZDg2ZTU2OCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1OTExOTU5NCwiZXhwIjoxNzU5MjA1OTk0fQ.WF8XdBfQr7U5_-F6HKX_U2ek5JsyU-hMERMXsCTqzQI
+
+
+
+###
+GET http://localhost:5000/api/attendance
+
+###
+POST http://localhost:5000/api/attendance
+Content-Type: application/json
+
+
+###
+DELETE http://localhost:5000/api/attendance/68db5c78d0d34849a1b5c23f

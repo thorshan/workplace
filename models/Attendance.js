@@ -1,31 +1,33 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const attendanceSchema = new mongoose.Schema({
+const attendanceSchema = new mongoose.Schema(
+  {
     employee: {
-        type: [ mongoose.Schema.Types.ObjectId ],
-        ref: 'Employee',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employee",
+      required: true,
     },
     department: {
-        type: [ mongoose.Schema.Types.ObjectId ],
-        ref: 'Department'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Department",
+      required: true,
     },
     status: {
-        type: String,
-        enum: [ 'Pending', 'Approved' ],
-        default: 'Pending'
+      type: String,
+      enum: ["Pending", "Active", "Absent"],
+      default: "Pending",
     },
     createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    approvedBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     remark: {
-        type: String,
-        nullable: true
-    }
-});
+      type: String,
+      default: null,
+    },
+  },
+  { timestamps: true }
+);
 
 module.exports = mongoose.model("Attendance", attendanceSchema);

@@ -1,67 +1,73 @@
-const Attendance = require('../models/Attendance');
-const Employee = require('../models/Employee');
-const Department = require('../models/Department');
+const Attendance = require("../models/Attendance");
 
-// Get all attendance
+// GET all attendance records
 const getAllAttendance = async (req, res) => {
-    try {
-        const attendance = await Attendance.find();
-        res.json(attendance);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-}
+  try {
+    const attendanceRecords = await Attendance.find()
+      .populate("employee", "name") // show employee name & ID
+      .populate("department", "name") // show department name
+      .populate("createdBy", "name") // show who created
+      .sort({ createdAt: -1 }); // latest first
 
-//Create attendance
+    res.status(200).json(attendanceRecords);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// CREATE new attendance record
 const createAttendance = async (req, res) => {
-    try {
-        const employee = await Employee.find();
-        const department = await Department.find();
-        const attendance = await Attendance.create({ department, employee });
-        res.json({ message: "Attendance created successfully.", attendance});
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+  try {
+    const { employee, department, status, remark } = req.body;
+    if (!employee || !department) {
+      return res
+        .status(400)
+        .json({ message: "Employee and Department are required" });
     }
-}
 
-// Get attendance by Id
-const getAttendance = async (req, res) => {
-    try {
-        const attendance = await Attendance.findById(req.params.id);
-        if(!attendance)
-            res.status(400).json({ message: "Attendace not found" });
-        res.json(attendance);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-}
+    const newAttendance = new Attendance({
+      employee,
+      department,
+      status: status || "Pending",
+      remark: remark || null,
+      createdBy: req.user._id, // assuming you have user from auth middleware
+    });
 
-// Update attendance
-// const updateAttendance = async (req, res) => {
-//     try {
-        
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// }
+    const savedAttendance = await newAttendance.save();
+    const populatedAttendance = await savedAttendance
+      .populate("employee", "name")
+      .populate("department", "name")
+      .populate("createdBy", "name");
 
-// Delete attendance
+    res.status(201).json(populatedAttendance);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// DELETE attendance by ID
 const deleteAttendance = async (req, res) => {
-    try {
-        const attendance = await Attendance.findById(req.params.id);
-        if(!attendance)
-            res.status(400).json({ message: "Attendace not found" });
-        await Attendance.findByIdAndDelete(req.params.id);
-        res.json({ message: "Attendance deleted!" });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+  try {
+    const { id } = req.params;
+
+    const attendance = await Attendance.findById(id);
+    if (!attendance) {
+      return res.status(404).json({ message: "Attendance record not found" });
     }
-}
+
+    await attendance.remove();
+
+    res.status(200).json({ message: "Attendance record deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 module.exports = {
-    getAllAttendance,
-    createAttendance,
-    getAttendance,
-    // updateAttendance,
-    deleteAttendance
-}
+  getAllAttendance,
+  createAttendance,
+  deleteAttendance,
+};

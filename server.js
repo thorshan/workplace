@@ -19,12 +19,14 @@ const auth = require("./routes/auth");
 const department = require('./routes/deparment');
 const employee = require('./routes/employee');
 const attendance = require('./routes/attendance');
+const attendanceSheet = require('./routes/attendanceSheet');
 
 // Auth Route
 app.use('/api', auth);
 app.use('/api', department);
 app.use('/api', employee);
 app.use('/api', attendance);
+app.use('/api', attendanceSheet);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));

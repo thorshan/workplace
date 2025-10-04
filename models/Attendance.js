@@ -24,7 +24,7 @@ const attendanceSchema = new mongoose.Schema(
     },
     remark: {
       type: String,
-      default: null,
+      default: "",
     },
   },
   { timestamps: true }

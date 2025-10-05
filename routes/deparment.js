@@ -1,20 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const dpmtController = require('../controllers/dpmtController');
+const auth = require("../middleware/auth");
+const role = require("../middleware/role");
 
 // Get all departments
-router.get('/departments', dpmtController.getAllDepartments);
+router.get('/departments', auth, role(["admin"]), dpmtController.getAllDepartments);
 
 // Create new department
-router.post('/departments', dpmtController.createDpmt);
+router.post('/departments', auth, role(["admin"]), dpmtController.createDpmt);
 
 // Get department by Id
-router.get('/departments/:id', dpmtController.getDpmt);
+router.get('/departments/:id', auth, role(["admin"]), dpmtController.getDpmt);
 
 // Update department
-router.put('/departments/:id', dpmtController.updateDpmt);
+router.put('/departments/:id', auth, role(["admin"]), dpmtController.updateDpmt);
 
 // Delete department
-router.delete('/departments/:id', dpmtController.deleteDpmt);
+router.delete('/departments/:id', auth, role(["admin"]), dpmtController.deleteDpmt);
 
 module.exports = router;

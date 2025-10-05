@@ -24,7 +24,7 @@ const createAttendanceSheet = async (req, res) => {
         .json({ error: "Attendance sheet for this date already exists" });
     }
     const employees = await Employee.find().populate("department");
-    const records = new Employee.map((emp) => ({
+    const records = employees.map((emp) => ({
       employee: emp._id,
       department: emp.department,
       status: "Pending",

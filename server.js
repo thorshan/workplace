@@ -20,6 +20,8 @@ const employee = require("./routes/employee");
 const attendance = require("./routes/attendance");
 const attendanceSheet = require("./routes/attendanceSheet");
 const empAuth = require("./routes/employeeAuth");
+const leave = require("./routes/leave");
+const holiday = require("./routes/holiday");
 
 // Auth Route
 app.use("/api", auth);
@@ -28,6 +30,8 @@ app.use("/api", employee);
 app.use("/api", attendance);
 app.use("/api", attendanceSheet);
 app.use("/workplace", empAuth);
+app.use("/api", leave);
+app.use("/api", holiday);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>

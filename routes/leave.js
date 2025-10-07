@@ -13,7 +13,7 @@ router.get("/leaves/:id", leaveController.getLeaveById);
 router.put(
   "/leaves/:id",
   auth,
-  (role = ["admin", "hr"]),
+  role(["admin", "hr"]),
   leaveController.updateLeave
 );
 

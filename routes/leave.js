@@ -4,19 +4,29 @@ const leaveController = require("../controllers/leaveController");
 const auth = require("../middleware/auth");
 const role = require("../middleware/role");
 
-router.get("/leaves", leaveController.getAllLeaves);
-
-router.post("/leaves", leaveController.createLeave);
-
-router.get("/leaves/:id", leaveController.getLeaveById);
-
-router.put(
+// Admin/HR
+router.get("/leaves", auth, role(["admin", "hr"]), leaveController.getLeaves);
+router.get(
   "/leaves/:id",
   auth,
   role(["admin", "hr"]),
-  leaveController.updateLeave
+  leaveController.getLeave
+);
+router.put(
+  "/leaves/:id/status",
+  auth,
+  role(["admin", "hr"]),
+  leaveController.updateLeaveStatus
+);
+router.delete(
+  "/leaves/:id",
+  auth,
+  role(["admin", "hr"]),
+  leaveController.deleteLeave
 );
 
-router.delete("/leaves/:id", leaveController.deleteLeave);
+// Employee
+router.post("/leaves", leaveController.createLeave);
+router.put("/leaves/:id", leaveController.updateLeave);
 
 module.exports = router;

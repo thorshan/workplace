@@ -28,7 +28,7 @@ const LeaveSchema = new mongoose.Schema(
       type: String,
       enum: ["Pending", "Approved", "Rejected"],
     },
-    createdBy: {
+    approvedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,

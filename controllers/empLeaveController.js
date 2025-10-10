@@ -4,8 +4,7 @@ const Employee = require("../models/Employee");
 // Get leaves for the logged-in employee
 const getEmployeeLeaves = async (req, res) => {
   try {
-    const { email } = req.body;
-    const employee = await Employee.findOne({ email });
+    const employee = await Employee.findById(req.params.id);
     if (!employee)
       return res.status(404).json({ message: "Employee not found" });
 
